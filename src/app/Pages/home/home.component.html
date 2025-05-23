@@ -1,0 +1,49 @@
+<div class="ticket-management">
+    <h1 class="form-header">Ticket Management</h1>
+
+    <form [formGroup]="ticketForm" (ngSubmit)="createTicket()" class="form-container">
+        <div class="form-field">
+            <input formControlName="phoneNumber" placeholder="Phone Number" required />
+        </div>
+        <div class="form-field">
+            <input formControlName="governorate" placeholder="Governorate" required />
+        </div>
+        <div class="form-field">
+            <input formControlName="city" placeholder="City" required />
+        </div>
+        <div class="form-field">
+            <input formControlName="district" placeholder="District" required />
+        </div>
+        <div class="form-action">
+            <button type="submit" class="submit-button">Create Ticket</button>
+        </div>
+    </form>
+
+    <div class="ticket-list">
+        @for (ticket of tickets; track $index) {
+        <div class="ticket" [ngStyle]="{
+        background: ticket.colorCode,
+        color: ticket.colorCode == 'Yellow' ? 'black' : 'white'
+      }">
+            <div class="teckit-info">
+                <p hidden>Id: {{ ticket.id }}</p>
+                <p>Phone: {{ ticket.phoneNumber }}</p>
+                <p>Governorate: {{ ticket.governorate }}</p>
+                <p>City: {{ ticket.city }}</p>
+                <p>District: {{ ticket.district }}</p>
+                <p>Status: {{ ticket.status }}</p>
+            </div>
+
+            @if(ticket.status !== 'Handled'){
+            <button class="handle" (click)="handleTicket(ticket.id)">Handle</button>
+            }
+        </div>
+        }
+    </div>
+    <div class="pagination">
+        <button (click)="changePage(-1)" [disabled]="currentPage === 1">
+            Previous
+        </button>
+        <button (click)="changePage(1)">Next</button>
+    </div>
+</div>
