@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TicketService } from '../../core/ticket.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'; ;
 import { CommonModule } from '@angular/common';
+import { TicketService } from '../../core/services/ticket.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   currentPage = 1;
   pageSize = 10;
 
-  constructor(private fb: FormBuilder, private ticketService: TicketService) {
+  constructor(private fb: FormBuilder, private ticketService: TicketService,private toastr: ToastrService) {
     this.ticketForm = this.fb.group({
       phoneNumber: [''],
       governorate: [''],
@@ -36,12 +37,21 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  createTicket() {
-    const ticketData = this.ticketForm.value;
-    this.ticketService.createTicket(ticketData).subscribe(() => {
+createTicket() {
+  const ticketData = this.ticketForm.value;
+
+  this.ticketService.createTicket(ticketData).subscribe({
+    next: () => { 
+      this.toastr.success('Ticket created successfully', 'Success'); 
       this.loadTickets();
-    });
-  }
+    },
+    error: (err) => { 
+      console.error('Error creating ticket:', err.error[0]); 
+      this.toastr.error(` ${err.error[0]}`, 'Error');
+    }
+  });
+}
+
 
   handleTicket(ticketId: string) {
     this.ticketService.handleTicket(ticketId).subscribe(() => {

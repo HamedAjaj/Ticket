@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+/* Ensure correct positioning for Toastr */
+.toast-top-right {
+    top: 20px !important;
+    /* Distance from the top */
+    right: 20px !important;
+    /* Distance from the right */
+    z-index: 1050 !important;
+    /* Ensure it appears above other elements */
+    position: fixed !important;
+}
+
+/* Optional: Additional Styling */
+.toast {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
+.toast-success {
+    background-color: #28a745 !important;
+    /* Green background */
+    color: #fff !important;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.toast-error {
+    background-color: #dc3545 !important;
+    /* Red background */
+    color: #fff !important;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
