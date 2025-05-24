@@ -28,9 +28,9 @@
             <div class="teckit-info">
                 <p hidden>Id: {{ ticket.id }}</p>
                 <p>Phone: {{ ticket.phoneNumber }}</p>
-                <p>Governorate: {{ ticket.governorate }}</p>
-                <p>City: {{ ticket.city }}</p>
-                <p>District: {{ ticket.district }}</p>
+                <p>Governorate: {{ ticket.address.governorate }}</p>
+                <p>City: {{ ticket.address.city }}</p>
+                <p>District: {{ ticket.address.district }}</p>
                 <p>Status: {{ ticket.status }}</p>
             </div>
 
